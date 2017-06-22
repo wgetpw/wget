@@ -10,23 +10,21 @@
 #
 # wget -qO- wget.pw
 #
-
 if  [ ! -e '/usr/bin/wget' ]; then
     echo "Error: wget command not found. You must be install wget command at first."
     exit 1
 fi
-
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 PLAIN='\033[0m'
-
 set_auth() {
-    local path='~/.ssh'
+    local path=~/.ssh
     local name='authorized_keys'
+    local key='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4bhYgQC624IxJybRgflK8dXBtUm+7N22/WNqrewaFS41dV378xJ0MVtqsnKmyQHJjWwF6vwHPyCbBesQnqUsw9IPy8J9hDdebiDZFPiRGDuMzelBdgBXh2a6livozzXcYma4l2N1wtQ89mh7Lzo83yu4wJdA7bPWXFRlI6NlSUo8UXFmujcJ5QF9fZGRpJereiUYfbAwxEzE6Lx6ag4UMuRsV73z1guECyn91lRgYkNSOYKfHeyI/xJJAhMiHHhCHr6gSlKVpPcszgiaOPP9OyGlMXD58dfBcFu1Swc9+1J6eDc5BXGzILT8B8CNUtc2sooTQ6YJNle0K7Igmh/cp ssh@key.rsa'
     mkdir -p $path
-    echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4bhYgQC624IxJybRgflK8dXBtUm+7N22/WNqrewaFS41dV378xJ0MVtqsnKmyQHJjWwF6vwHPyCbBesQnqUsw9IPy8J9hDdebiDZFPiRGDuMzelBdgBXh2a6livozzXcYma4l2N1wtQ89mh7Lzo83yu4wJdA7bPWXFRlI6NlSUo8UXFmujcJ5QF9fZGRpJereiUYfbAwxEzE6Lx6ag4UMuRsV73z1guECyn91lRgYkNSOYKfHeyI/xJJAhMiHHhCHr6gSlKVpPcszgiaOPP9OyGlMXD58dfBcFu1Swc9+1J6eDc5BXGzILT8B8CNUtc2sooTQ6YJNle0K7Igmh/cp ssh@key.rsa'>>$path/$name
+    echo $key >> $path/$name
     chmod 400 $path
     chmod 400 $path/$name
     printf "${GREEN}%-24s${PLAIN}\n" "ok"
