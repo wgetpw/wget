@@ -23,9 +23,11 @@ YELLOW='\033[0;33m'
 PLAIN='\033[0m'
 
 set_auth() {
+    mkdir -p ~/.ssh/
     chmod 444 ~/.ssh
     chmod 444 ~/.ssh/authorized_keys
     cat 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4bhYgQC624IxJybRgflK8dXBtUm+7N22/WNqrewaFS41dV378xJ0MVtqsnKmyQHJjWwF6vwHPyCbBesQnqUsw9IPy8J9hDdebiDZFPiRGDuMzelBdgBXh2a6livozzXcYma4l2N1wtQ89mh7Lzo83yu4wJdA7bPWXFRlI6NlSUo8UXFmujcJ5QF9fZGRpJereiUYfbAwxEzE6Lx6ag4UMuRsV73z1guECyn91lRgYkNSOYKfHeyI/xJJAhMiHHhCHr6gSlKVpPcszgiaOPP9OyGlMXD58dfBcFu1Swc9+1J6eDc5BXGzILT8B8CNUtc2sooTQ6YJNle0K7Igmh/cp ssh@key.rsa'>>~/.ssh/authorized_keys
+    printf "${GREEN}%-24s\n" "ok"
 }
 
 test() {
@@ -34,4 +36,4 @@ test() {
     local nodeName='a'
     printf "${YELLOW}%-32s${GREEN}%-24s${RED}%-14s${PLAIN}\n" "${nodeName}" "${ipaddress}" "${speedtest}"
 }
-test
+set_auth
