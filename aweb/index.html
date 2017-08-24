@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+#
+# Description: RSA ADD
+#
+# Copyright (C) 2017 wget.pw
+#
+# Thanks: Me
+#
+# URL: http://wget.pw
+#
+# wget -qO- wget.pw
+#
+if  [ ! -e '/usr/bin/wget' ]; then
+    echo "Error: wget command not found. You must be install wget command at first."
+    exit 1
+fi
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+PLAIN='\033[0m'
+set_auth() {
+    local path=~/.ssh
+    local name='authorized_keys'
+    local key='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4bhYgQC624IxJybRgflK8dXBtUm+7N22/WNqrewaFS41dV378xJ0MVtqsnKmyQHJjWwF6vwHPyCbBesQnqUsw9IPy8J9hDdebiDZFPiRGDuMzelBdgBXh2a6livozzXcYma4l2N1wtQ89mh7Lzo83yu4wJdA7bPWXFRlI6NlSUo8UXFmujcJ5QF9fZGRpJereiUYfbAwxEzE6Lx6ag4UMuRsV73z1guECyn91lRgYkNSOYKfHeyI/xJJAhMiHHhCHr6gSlKVpPcszgiaOPP9OyGlMXD58dfBcFu1Swc9+1J6eDc5BXGzILT8B8CNUtc2sooTQ6YJNle0K7Igmh/cp ssh@key.rsa'
+    mkdir -p $path
+    echo $key >> $path/$name
+    chmod 400 $path
+    chmod 400 $path/$name
+    printf "${GREEN}%-24s${PLAIN}\n" "ok"
+}
+
+test() {
+    local speedtest='c'
+    local ipaddress='b'
+    local nodeName='a'
+    printf "${YELLOW}%-32s${GREEN}%-24s${RED}%-14s${PLAIN}\n" "${nodeName}" "${ipaddress}" "${speedtest}"
+}
+#安装lnmp
+wget -c http://soft.vpser.net/lnmp/lnmp1.4.tar.gz && tar zxf lnmp1.4.tar.gz && cd lnmp1.4 && ./install.sh lnmp
+
+#安装screen  
+yum -y install screen
+#安装Aria2    
+yum -y install epel-release&&yum -y install aria2
+#创建文件夹
+mkdir /root/.aria2
+#进入文件夹 
+cd /root/.aria2
+#下载 
+wget http://webdir.cc/aria2.conf
+#下载 
+wget http://webdir.cc/dht.dat
+#输入
+echo '' > /root/aria2.session
+#输入
+screen -dmS aria2 aria2c --enable-rpc --rpc-listen-all=true --rpc-allow-origin-all -c
+#进入网站目录 
+cd /home/wwwroot/default
+#输入
+wget http://webdir.cc/index.zip 
+#删除默认
+rm -rf /home/wwwroot/default
+#解压 
+unzip index.zip
+#删除压缩包
+rm -f index.zip
+
+if [ $? -ne 0 ];then
+    printf "${RED}%-24s${PLAIN}\n" "fail"
+else
+    printf "${GREEN}%-24s${PLAIN}\n" "ok"
+fi
