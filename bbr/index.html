@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#
+# Description: RSA ADD
+#
+# Copyright (C) 2017 wget.pw
+#
+# Thanks: Me
+#
+# URL: http://wget.pw
+#
+# wget -qO- wget.pw
+#
+if  [ ! -e '/usr/bin/wget' ]; then
+    echo "Error: wget command not found. You must be install wget command at first."
+    exit 1
+fi
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+PLAIN='\033[0m'
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
+chmod +x bbr.sh
+./bbr.sh
+
+if [ $? -ne 0 ];then
+    printf "${RED}%-24s${PLAIN}\n" "fail"
+else
+    printf "${GREEN}%-24s${PLAIN}\n" "ok"
+fi
